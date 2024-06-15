@@ -10,6 +10,7 @@
 			city: 0,
 			income: 0
 		}
+
 		let age = 0;
 		let tabSet: number = 0;
 		
@@ -21,6 +22,7 @@
 
 <div class="container h-full mx-auto flex justify-center items-center">
 	<div class="space-y-5">
+		<h1 class="h1" style="text-align: center;">ATS targeted to your demographic</h1>
 		<div class="card p-4">
 			<br>
 			<h1 class="h1" style="text-align: center;">Please add a .pdf or a news article URL</h1>
