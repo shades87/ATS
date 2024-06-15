@@ -27,7 +27,7 @@
 			<br>
 			<div class="flex align-items">
 				<p style="margin-left: 10px; margin-right: 10px;">Age </p>
-				<select class="select"  color="secondary-500"  bind:value={user.age} on:change={handleAge}>
+				<select class="select" bind:value={user.age} on:change={handleAge}>
 					<option value="0"></option>
 					<option value="1">Under 15</option>
 					<option value="2">15-35</option>
