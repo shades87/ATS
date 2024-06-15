@@ -8,44 +8,52 @@
 
 <div class="container h-full mx-auto flex justify-center items-center">
 	<div class="space-y-5">
-		<h1 class="h1" style="text-align: center;">Please add a .pdf or a news article URL</h1>
-		<div class="flex align-items">
-		<p>Age </p>
-		<select class="Demographic" style="margin-left: 5px;" color="secondary-500">
-			<option value="0"></option>
-			<option value="1">Under 15</option>
-			<option value="2">15-35</option>
-			<option value="3">36-65</option>
-			<option value="4">66+</option>
-		</select>
-		<p  style="margin-left: 10px;"> Education Level </p>
-		<select class="Demographic"  style="margin-left: 5px;">
-			<option value="0"></option>
-			<option value="1">High School</option>
-			<option value="2">Bachelor's degree</option>
-			<option value="3">PHD</option>
-		</select>
-		<p  style="margin-left: 10px;"> Nationality </p>
-		<select class="Demographic"  style="margin-left: 5px;">
-			<option value="0"></option>
-			<option value="1">Australian</option>
-			<option value="2">New Zealand</option>
-			<option value="3">England</option>
-			<option value="3">United States</option>
-		</select>
-		<p  style="margin-left: 10px;"> Metro or regional </p>
-		<select class="Demographic"  style="margin-left: 5px;">
-			<option value="0"></option>
-			<option value="1">Metro</option>
-			<option value="2">Regional</option>
-		</select>
-		<p style="margin-left: 10px;">Income level</p>
-		<select class="Demographic"  style="margin-left: 5px;">
-			<option value="0"></option>
-			<option value="1">Under $30K</option>
-			<option value="2">$30K-$100K</option>
-			<option value="3">$100K+</option>
-		</select>
+		<div class="card p-4">
+			<br>
+			<h1 class="h1" style="text-align: center;">Please add a .pdf or a news article URL</h1>
+			<br>
+			<div class="flex align-items">
+				<p>Age </p>
+				<select class="Demographic" style="margin-left: 5px;" color="secondary-500">
+					<option value="0"></option>
+					<option value="1">Under 15</option>
+					<option value="2">15-35</option>
+					<option value="3">36-65</option>
+					<option value="4">66+</option>
+				</select>
+				<p  style="margin-left: 10px;"> Education Level </p>
+				<select class="Demographic"  style="margin-left: 5px;">
+					<option value="0"></option>
+					<option value="1">High School</option>
+					<option value="2">Bachelor's degree</option>
+					<option value="3">PHD</option>
+				</select>
+				<p  style="margin-left: 10px;"> Nationality </p>
+				<select class="Demographic"  style="margin-left: 5px;">
+					<option value="0"></option>
+					<option value="1">Australian</option>
+					<option value="2">New Zealand</option>
+					<option value="3">England</option>
+					<option value="3">United States</option>
+				</select>
+				<p  style="margin-left: 10px;"> Metro or regional </p>
+				<select class="Demographic"  style="margin-left: 5px;">
+					<option value="0"></option>
+					<option value="1">Metro</option>
+					<option value="2">Regional</option>
+				</select>
+				<p style="margin-left: 10px;">Income level</p>
+				<select class="Demographic"  style="margin-left: 5px;">
+					<option value="0"></option>
+					<option value="1">Under $30K</option>
+					<option value="2">$30K-$100K</option>
+					<option value="3">$100K+</option>
+				</select>
+				
+			</div>
+			<button type="button" class="btn variant-filled float-right" style="margin: 10px;">clear all</button>
+			<br>
+			<br>
 		</div>
 		<div class="card" style="height: 150px;">
 		<TabGroup>
