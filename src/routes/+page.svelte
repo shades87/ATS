@@ -25,7 +25,7 @@
 		<h1 class="h1" style="text-align: center;">ATS targeted to your demographic</h1>
 		<div class="card p-4">
 			<br>
-			<h1 class="h1" style="text-align: center;">Please add a .pdf or a news article URL</h1>
+			<h1 class="h1" style="text-align: center;">Choose your demographics (or leave them blank)</h1>
 			<br>
 			<div class="flex align-items">
 				<p style="margin-left: 10px; margin-right: 10px;">Age </p>
@@ -71,31 +71,35 @@
 			<br>
 		</div>
 		<div class="card" style="height: 150px;">
-		<TabGroup>
-			<Tab bind:group={tabSet} name="tab1" value={0}>
-				<span>PDF</span>
-			</Tab>
-			<Tab bind:group={tabSet} name="tab2" value={1}>News Article URL</Tab>
-			<!-- Tab Panels --->
-			<svelte:fragment slot="panel">
-				{#if tabSet === 0}
-					<FileDropzone name="files" />
-				{:else if tabSet === 1}
-				<div class="grow">
-					<br>
-					<br>
-				</div>
-					<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-						<div class="input-group-shim">https://</div>
-						<input type="text" placeholder="www.example.com" />
-			  		</div>
-				{/if}
-			</svelte:fragment>
-		</TabGroup>
+			<h1 class="h1" style="text-align: center;">Upload a PDF or enter a URL to a news article</h1>
+			<TabGroup>
+				<Tab bind:group={tabSet} name="tab1" value={0}>
+					<span>PDF</span>
+				</Tab>
+				<Tab bind:group={tabSet} name="tab2" value={1}>News Article URL</Tab>
+				<!-- Tab Panels --->
+				<svelte:fragment slot="panel">
+					{#if tabSet === 0}
+						<FileDropzone name="files" />
+					{:else if tabSet === 1}
+					<div class="grow">
+					</div>
+						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+							<div class="input-group-shim">https://</div>
+							<input type="text" placeholder="www.example.com" />
+						</div>
+					{/if}
+				</svelte:fragment>
+				<br>
+				<br>
+			</TabGroup>
 		</div>
 		<br>
+		<bv>
+		<br>
+		<br>
 		<ul>
-			<li><code class="code">https://github.com/shades87</code> - github</li>
+			<li><code class="code"><a href="https://github.com/shades87">https://github.com/shades87</a></code> - github</li>
 		</ul>
 	</div>
 </div>
