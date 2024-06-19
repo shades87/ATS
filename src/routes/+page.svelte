@@ -1,4 +1,4 @@
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
+<!-- This is how to comment -->
 <script lang=ts>
 		import { FileDropzone } from '@skeletonlabs/skeleton';
 		import { TabGroup, Tab } from '@skeletonlabs/skeleton';
