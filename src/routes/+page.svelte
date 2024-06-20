@@ -178,7 +178,7 @@
 			<br>
 			<br>
 		</div>
-		<div class="card" style="height: 150px;">
+		<div class="card" style="height: 280px;">
 			<h1 class="h1" style="text-align: center;">Upload a PDF or enter a URL to a news article</h1>
 			<TabGroup>
 				<Tab bind:group={tabSet} name="tab1" value={0}>
@@ -189,7 +189,7 @@
 				<svelte:fragment slot="panel">
 					{#if tabSet === 0}
 						<FileDropzone name="files" accept=".PDF"  on:change={onUploadFile} bind:files={files}/>
-						<button type="button" class="btn variant-filled float-right">Clear file</button>
+						<button type="button" class="btn variant-filled float-right" style="margin: 10px;">Clear file</button>
 					{:else if tabSet === 1}
 					<div class="grow">
 					</div>
@@ -203,7 +203,7 @@
 				<br>
 			</TabGroup>
 		</div>
-		
+		<button type="button" class="btn variant-filled float-right"style="margin: 10px;">summarise!</button>
 		<br>
 		<bv>
 		<br>
