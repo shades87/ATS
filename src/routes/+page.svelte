@@ -120,6 +120,12 @@
 			user.city = 0; city = "";
 			user.income = 0; income = "";
 		}
+
+		let files: FileList;
+		
+		function onUploadFile(e: Event): void {
+	console.log('file data:', e);
+}
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
@@ -131,7 +137,7 @@
 			<br>
 			<div class="flex align-items">
 				<p style="margin-left: 10px; margin-right: 10px;">Age </p>
-				<select class="select" bind:value={user.age} on:change={handleAge}>
+				<select class="select" name="Age" bind:value={user.age} on:change={handleAge}>
 					<option value="0"></option>
 					<option value="1">Under 15</option>
 					<option value="2">15-35</option>
@@ -139,14 +145,14 @@
 					<option value="4">66+</option>
 				</select>
 				<p  style="margin-left: 10px; margin-right: 10px;"> Education Level </p>
-				<select class="select" bind:value={user.ed} on:change={handleEd}>
+				<select class="select" name="Ed" bind:value={user.ed} on:change={handleEd}>
 					<option value="0"></option>
 					<option value="1">High School</option>
 					<option value="2">Bachelor's degree</option>
 					<option value="3">PHD</option>
 				</select>
 				<p  style="margin-left: 10px; margin-right: 10px;"> Nationality </p>
-				<select class="select" bind:value={user.nat} on:change={handleNat}>
+				<select class="select" name="Nation" bind:value={user.nat} on:change={handleNat}>
 					<option value="0"></option>
 					<option value="1">Australian</option>
 					<option value="2">New Zealand</option>
@@ -154,13 +160,13 @@
 					<option value="3">United States</option>
 				</select>
 				<p  style="margin-left: 10px; margin-right: 10px;"> Metro or regional </p>
-				<select class="select" bind:value={user.city} on:change={handleCity}>
+				<select class="select" name="Metro" bind:value={user.city} on:change={handleCity}>
 					<option value="0"></option>
 					<option value="1">Metro</option>
 					<option value="2">Regional</option>
 				</select>
 				<p style="margin-left: 10px; margin-right: 10px;">Income level</p>
-				<select class="select" bind:value={user.income} on:change={handleIncome}>
+				<select class="select" name = "Income" bind:value={user.income} on:change={handleIncome}>
 					<option value="0"></option>
 					<option value="1">Under $30K</option>
 					<option value="2">$30K-$100K</option>
@@ -168,7 +174,7 @@
 				</select>
 				
 			</div>
-			<button type="button" class="btn variant-filled float-right" style="margin: 10px;" on:click={clearAll}>clear all</button>
+			<button type="button" class="btn variant-filled float-right" style="margin: 10px;" on:click={clearAll}>clear all demographics</button>
 			<br>
 			<br>
 		</div>
@@ -182,7 +188,8 @@
 				<!-- Tab Panels --->
 				<svelte:fragment slot="panel">
 					{#if tabSet === 0}
-						<FileDropzone name="files" />
+						<FileDropzone name="files" accept=".PDF"  on:change={onUploadFile} bind:files={files}/>
+						<button type="button" class="btn variant-filled float-right">Clear file</button>
 					{:else if tabSet === 1}
 					<div class="grow">
 					</div>
@@ -196,6 +203,7 @@
 				<br>
 			</TabGroup>
 		</div>
+		
 		<br>
 		<bv>
 		<br>
