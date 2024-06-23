@@ -123,6 +123,11 @@
 
 		let files: FileList;
 		
+		function handleRemoveFile(){
+			
+			
+		}
+
 		function onUploadFile(e: Event): void {
 	console.log('file data:', e);
 }
@@ -193,13 +198,14 @@
 							{#if files && files.length > 0} 
 								<p>Your file is {files[0].name}</p>
 							{/if}
-							<button type="button" class="btn variant-filled float-right" style="margin: 10px;" on:click={files[0] = ""}>Clear file</button>
+							<button type="button" class="btn variant-filled float-right" style="margin: 10px;" on:click={handleRemoveFile}>clear file</button>
 						</div>
 					{:else if tabSet === 1}
 						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 							<div class="input-group-shim">https://</div>
 							<input type="text" placeholder="www.example.com" />
 						</div>
+						<button type="button" class="btn variant-filled float-right" style="margin: 10px;">clear url</button>
 					{/if}
 				</svelte:fragment>
 				<br>
