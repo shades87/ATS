@@ -217,12 +217,19 @@
 		<bv>
 		<br>
 		<br>
-		<p>
-			User is {age}, {city}, {ed}, {income} and {nat}
-		</p>
-		<p>
-			Selection codes {user.age}, {user.city}, {user.ed}, {user.income} and {user.nat}
-		</p>
+		<div class="card" style="width: auto">
+			{#if tabSet === 0}
+			<p>User is summarising a PDF</p>
+			{:else if tabSet === 1}
+			<p>User is summarising a URL</p>
+			{/if}
+			<p>
+				User is {age}, {city}, {ed}, {income} and {nat}
+			</p>
+			<p>
+				Selection codes {user.age}, {user.city}, {user.ed}, {user.income} and {user.nat}
+			</p>
+		</div>
 		<ul>
 			<li><code class="code"><a href="https://github.com/shades87">https://github.com/shades87</a></code> - github</li>
 		</ul>
