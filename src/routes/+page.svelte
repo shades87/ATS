@@ -2,7 +2,7 @@
 <script lang=ts>
 		import { FileDropzone } from '@skeletonlabs/skeleton';
 		import { TabGroup, Tab } from '@skeletonlabs/skeleton';
-	import type { Stringifier } from 'postcss';
+		import type { Stringifier } from 'postcss';
 
 		let user = {
 			age: 0,
@@ -178,7 +178,7 @@
 			<br>
 			<br>
 		</div>
-		<div class="card" style="height: 280px;">
+		<div class="card">
 			<h1 class="h1" style="text-align: center;">Upload a PDF or enter a URL to a news article</h1>
 			<TabGroup>
 				<Tab bind:group={tabSet} name="tab1" value={0}>
@@ -188,11 +188,14 @@
 				<!-- Tab Panels --->
 				<svelte:fragment slot="panel">
 					{#if tabSet === 0}
-						<FileDropzone name="files" accept=".PDF"  on:change={onUploadFile} bind:files={files}/>
-						<button type="button" class="btn variant-filled float-right" style="margin: 10px;">Clear file</button>
+						<div>
+							<FileDropzone name="files" accept=".PDF"  on:change={onUploadFile} bind:files={files}/>
+							{#if files && files.length > 0} 
+								<p>Your file is {files[0].name}</p>
+							{/if}
+							<button type="button" class="btn variant-filled float-right" style="margin: 10px;" on:click={files[0] = ""}>Clear file</button>
+						</div>
 					{:else if tabSet === 1}
-					<div class="grow">
-					</div>
 						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 							<div class="input-group-shim">https://</div>
 							<input type="text" placeholder="www.example.com" />
