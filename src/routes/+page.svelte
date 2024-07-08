@@ -1,8 +1,10 @@
 <!-- This is how to comment -->
 <script lang=ts>
-		import { FileDropzone } from '@skeletonlabs/skeleton';
+		import { FileDropzone, type ModalSettings } from '@skeletonlabs/skeleton';
 		import { TabGroup, Tab } from '@skeletonlabs/skeleton';
-		import type { Stringifier } from 'postcss';
+		import { getModalStore } from '@skeletonlabs/skeleton';
+
+		const modalStore = getModalStore();
 
 		let user = {
 			age: 0,
@@ -44,6 +46,16 @@
 			}
 			
 		}
+
+		const handleSummarize = () => {
+			const modal: ModalSettings = {
+				type: 'alert',
+				title: 'Example Alert',
+				body: 'This is an example modal.',
+				image: 'https://i.imgur.com/WOgTG96.gif'
+		}
+		modalStore.trigger(modal);
+	}
 
 		const handleEd = () => {
 			switch (+user.ed) {
@@ -212,7 +224,7 @@
 				<br>
 			</TabGroup>
 		</div>
-		<button type="button" class="btn variant-filled float-right"style="margin: 10px;">summarise!</button>
+		<button type="button" class="btn variant-filled float-right"style="margin: 10px;" on:click={handleSummarize}>summarise!</button>
 		<br>
 		<bv>
 		<br>
