@@ -4,6 +4,8 @@
 		import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 		import { getModalStore } from '@skeletonlabs/skeleton';
 
+		const url = 'https://www.theguardian.com/australia-news/article/2024/jul/08/blockade-australia-climate-activist-sentenced-to-three-months-in-jail-over-port-of-newcastle-protest-ntwnfb'
+
 		const modalStore = getModalStore();
 
 		let user = {
@@ -48,6 +50,7 @@
 		}
 
 		const handleSummarize = () => {
+
 			const modal: ModalSettings = {
 				type: 'alert',
 				title: 'Example Alert',
@@ -56,6 +59,8 @@
 		}
 		modalStore.trigger(modal);
 	}
+
+
 
 		const handleEd = () => {
 			switch (+user.ed) {
