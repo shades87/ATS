@@ -49,7 +49,34 @@
 			
 		}
 
-		const handleSummarize = () => {
+		async function handleSummarize(){
+
+			const api = 'http://127.0.0.1:8000/summariseGPT'
+			
+			const toSend:JSON = <JSON><unknown>{
+        		"url": api,
+        		"age": age,
+				"nat": nat,
+				"income": income,
+				"ed": ed,
+				"city": city
+      		}
+
+			  const response = await fetch(api, {
+  				method: 'POST',
+  				body: JSON.stringify(toSend),
+  				headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'} });
+
+			if (!response.ok) { /* Handle */ }
+
+			// If you care about a response:
+			if (response.body !== null) {
+			// body is ReadableStream<Uint8Array>
+			// parse as needed, e.g. reading directly, or
+				const asString = new TextDecoder("utf-8").decode(response.body);
+			// and further:
+				const asJSON = JSON.parse(asString);  // implicitly 'any', make sure to verify type on runtime.
+				}
 
 			const modal: ModalSettings = {
 				type: 'alert',
