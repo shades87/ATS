@@ -53,7 +53,7 @@
 			const api = 'http://127.0.0.1:8000/summariseGPT'
 			
 			const toSend:JSON = <JSON><unknown>{
-        		"url": 'https://www.theguardian.com/australia-news/article/2024/jul/08/blockade-australia-climate-activist-sentenced-to-three-months-in-jail-over-port-of-newcastle-protest-ntwnfb',
+        		"url": url,
         		"age": +user.age,
 				"nat": +user.nat,
 				"income": +user.income,
