@@ -21,8 +21,6 @@
 		let nat:string = "";
 		let city:string = "";
 		let income:string = "";
-
-		let tabSet: number = 0;
 		
 		
 		const handleAge = () => {
@@ -55,12 +53,12 @@
 			const api = 'http://127.0.0.1:8000/summariseGPT'
 			
 			const toSend:JSON = <JSON><unknown>{
-        		"url": url,
-        		"age": +age,
-				"nat": +nat,
-				"income": +income,
-				"ed": +ed,
-				"city": +city
+        		"url": 'https://www.theguardian.com/australia-news/article/2024/jul/08/blockade-australia-climate-activist-sentenced-to-three-months-in-jail-over-port-of-newcastle-protest-ntwnfb',
+        		"age": +user.age,
+				"nat": +user.nat,
+				"income": +user.income,
+				"ed": +user.ed,
+				"city": +user.city
       		}
 
 			console.log(JSON.stringify(toSend))
@@ -233,34 +231,14 @@
 			<br>
 			<br>
 		</div>
-		<div class="card">
-			<h1 class="h1" style="text-align: center;">Upload a PDF or enter a URL to a news article</h1>
-			<TabGroup>
-				<Tab bind:group={tabSet} name="tab1" value={0}>
-					<span>PDF</span>
-				</Tab>
-				<Tab bind:group={tabSet} name="tab2" value={1}>News Article URL</Tab>
-				<!-- Tab Panels --->
-				<svelte:fragment slot="panel">
-					{#if tabSet === 0}
-						<div>
-							<FileDropzone name="files" accept=".PDF"  on:change={onUploadFile} bind:files={files}/>
-							{#if files && files.length > 0} 
-								<p>Your file is {files[0].name}</p>
-							{/if}
-							<button type="button" class="btn variant-filled float-right" style="margin: 10px;" on:click={handleRemoveFile}>clear file</button>
-						</div>
-					{:else if tabSet === 1}
-						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-							<div class="input-group-shim">https://</div>
-							<input type="text" placeholder="www.example.com" />
-						</div>
-						<button type="button" class="btn variant-filled float-right" style="margin: 10px;">clear url</button>
-					{/if}
-				</svelte:fragment>
+		<div class="card" style="padding:5px">
+			<h1 class="h1" style="text-align: center; justify-contents: center">Enter a URL to a news article</h1>
 				<br>
-				<br>
-			</TabGroup>
+				<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
+					<div class="input-group-shim">URL: </div>
+					<input type="text" placeholder="https://www.example.com" />
+				</div>
+
 		</div>
 		<button type="button" class="btn variant-filled float-right"style="margin: 10px;" on:click={handleSummarize}>summarise!</button>
 		<br>
@@ -268,11 +246,7 @@
 		<br>
 		<br>
 		<div class="card" style="width: auto">
-			{#if tabSet === 0}
-			<p>User is summarising a PDF</p>
-			{:else if tabSet === 1}
 			<p>User is summarising a URL</p>
-			{/if}
 			<p>
 				User is {age}, {city}, {ed}, {income} and {nat}
 			</p>
