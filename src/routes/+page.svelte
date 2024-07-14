@@ -83,14 +83,14 @@
 				const responseBody = await response.json(); // Parse the JSON response
     			console.log(responseBody);
 
-			// and further:
-			const modal: ModalSettings = {
-				type: 'alert',
-				title: 'Summary',
-				body: responseBody.message
-		}
-		modalStore.trigger(modal);
+				// and further:
+				const modal: ModalSettings = {
+					type: 'alert',
+					title: 'Summary',
+					body: responseBody.message
 				}
+				modalStore.trigger(modal);
+			}
 
 			
 		
@@ -250,17 +250,8 @@
 		<bv>
 		<br>
 		<br>
-		<div class="card" style="width: auto">
-			<p>User is summarising a URL</p>
-			<p>
-				User is {age}, {city}, {ed}, {income} and {nat}
-			</p>
-			<p>
-				Selection codes {user.age}, {user.city}, {user.ed}, {user.income} and {user.nat}
-			</p>
-		</div>
 		<ul>
-			<li><code class="code"><a href="https://github.com/shades87">https://github.com/shades87</a></code> - github</li>
+			<li><code class="code"><a class="text-secondary-500" href="https://github.com/shades87">https://github.com/shades87</a></code> - github</li>
 		</ul>
 	</div>
 </div>
