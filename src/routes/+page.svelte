@@ -3,11 +3,14 @@
 		import { FileDropzone, type ModalSettings } from '@skeletonlabs/skeleton';
 		import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 		import { getModalStore } from '@skeletonlabs/skeleton';
+		import spinner from '$lib/ring-resize-black-36.svg'
 
 		const url = 'https://www.theguardian.com/australia-news/article/2024/jul/08/blockade-australia-climate-activist-sentenced-to-three-months-in-jail-over-port-of-newcastle-protest-ntwnfb'
 		let inputURL: string;
 
 		const modalStore = getModalStore();
+
+		let isLoading = false;
 
 		let user = {
 			age: 0,
@@ -53,7 +56,7 @@
 		}
 
 		async function handleSummarize(){
-			
+			isLoading = true;
 			console.log("In handleSummarize()")
 			const api = 'http://127.0.0.1:8000/summariseGPT'
 			
@@ -76,6 +79,7 @@
 				console.error("HTTP Error: " + response.status);
     			const errorText = await response.text();
     			console.error("Error response text:", errorText);
+				isLoading = false
 			 }
 
 			// If you care about a response:
@@ -90,6 +94,7 @@
 					body: responseBody.message
 				}
 				modalStore.trigger(modal);
+				isLoading = false;
 			}
 
 			
@@ -245,7 +250,11 @@
 				</div>
 
 		</div>
-		<button type="button" class="btn variant-filled float-right"style="margin: 10px;" on:click={handleSummarize}>summarise!</button>
+		{#if isLoading} 
+		 <img class="float-right" src={spinner} alt="loading spinner"/>
+		{:else}
+			<button type="button" class="btn variant-filled float-right"style="margin: 10px;" on:click={handleSummarize}>summarise!</button>
+		{/if}
 		<br>
 		<bv>
 		<br>
