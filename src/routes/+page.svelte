@@ -87,7 +87,7 @@
 			const modal: ModalSettings = {
 				type: 'alert',
 				title: 'Summary',
-				body: responseBody.content
+				body: responseBody.message
 		}
 		modalStore.trigger(modal);
 				}
