@@ -5,6 +5,7 @@
 		import { getModalStore } from '@skeletonlabs/skeleton';
 
 		const url = 'https://www.theguardian.com/australia-news/article/2024/jul/08/blockade-australia-climate-activist-sentenced-to-three-months-in-jail-over-port-of-newcastle-protest-ntwnfb'
+		let inputURL: string;
 
 		const modalStore = getModalStore();
 
@@ -47,13 +48,17 @@
 			
 		}
 
+		const handleURL = () => {
+
+		}
+
 		async function handleSummarize(){
 			
 			console.log("In handleSummarize()")
 			const api = 'http://127.0.0.1:8000/summariseGPT'
 			
 			const toSend:JSON = <JSON><unknown>{
-        		"url": url,
+        		"url": inputURL,
         		"age": +user.age,
 				"nat": +user.nat,
 				"income": +user.income,
@@ -236,7 +241,7 @@
 				<br>
 				<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 					<div class="input-group-shim">URL: </div>
-					<input type="text" placeholder="https://www.example.com" />
+					<input type="text" placeholder="https://www.example.com" bind:value={inputURL} />
 				</div>
 
 		</div>
