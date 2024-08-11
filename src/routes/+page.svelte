@@ -1,7 +1,6 @@
 <!-- This is how to comment -->
 <script lang=ts>
-		import { FileDropzone, type ModalSettings } from '@skeletonlabs/skeleton';
-		import { TabGroup, Tab } from '@skeletonlabs/skeleton';
+		import { type ModalSettings } from '@skeletonlabs/skeleton';
 		import { getModalStore } from '@skeletonlabs/skeleton';
 		import spinner from '$lib/ring-resize-black-36.svg'
 
@@ -11,6 +10,8 @@
 		const modalStore = getModalStore();
 
 		let isLoading = false;
+
+		let model = "1";
 
 		let user = {
 			age: 0,
@@ -51,13 +52,60 @@
 			
 		}
 
-		const handleURL = () => {
+		async function handleSummarizeBert(){
+			
+			isLoading = true;
+			const api = 'http://127.0.0.1:8000/summariseBERT'
+			
+			const toSend:JSON = <JSON><unknown>{
+        		"url": inputURL,
+        		"age": +user.age,
+				"nat": +user.nat,
+				"income": +user.income,
+				"ed": +user.ed,
+				"city": +user.city
+      		}
 
+			const response = await fetch(api, {
+  				method: 'POST',
+  				body: JSON.stringify(toSend),
+  				headers: { 'Content-Type': 'application/json'} });
+
+			if (!response.ok) { 
+				console.error("HTTP Error: " + response.status);
+    			const errorText = await response.text();
+    			console.error("Error response text:", errorText);
+				isLoading = false
+			 }
+
+		
+			if (response.body !== null) {
+				const responseBody = await response.json(); // Parse the JSON response
+    			console.log(responseBody);
+
+
+				const modal: ModalSettings = {
+					type: 'alert',
+					title: 'Summary',
+					body: responseBody.message
+				}
+				modalStore.trigger(modal);
+				isLoading = false;
+			}
 		}
 
-		async function handleSummarize(){
+		const handleSummarize = () => {
+			if (model == "1"){
+				handleSummarizeBert();
+			}
+
+			if (model == "2"){
+				handleSummarizeGPT();
+			}
+		}
+
+		async function handleSummarizeGPT(){
 			isLoading = true;
-			console.log("In handleSummarize()")
 			const api = 'http://127.0.0.1:8000/summariseGPT'
 			
 			const toSend:JSON = <JSON><unknown>{
@@ -69,7 +117,6 @@
 				"city": +user.city
       		}
 
-			console.log(JSON.stringify(toSend))
 			  const response = await fetch(api, {
   				method: 'POST',
   				body: JSON.stringify(toSend),
@@ -82,12 +129,12 @@
 				isLoading = false
 			 }
 
-			// If you care about a response:
+		
 			if (response.body !== null) {
 				const responseBody = await response.json(); // Parse the JSON response
     			console.log(responseBody);
 
-				// and further:
+
 				const modal: ModalSettings = {
 					type: 'alert',
 					title: 'Summary',
@@ -250,11 +297,17 @@
 				</div>
 
 		</div>
-		{#if isLoading} 
-		 <img class="float-right" src={spinner} alt="loading spinner"/>
-		{:else}
-			<button type="button" class="btn variant-filled float-right"style="margin: 10px;" on:click={handleSummarize}>summarise!</button>
-		{/if}
+		<div class="float-right">
+			<select class="select" style="width: 110px;" bind:value={model}>
+				<option value="1" selected>bert</option>
+				<option value="2">gpt</option>
+			</select>
+			{#if isLoading} 
+			<img src={spinner} alt="loading spinner"/>
+			{:else}
+				<button type="button" class="btn variant-filled"style="margin: 10px;" on:click={handleSummarize}>summarise!</button>
+			{/if}
+		</div>
 		<br>
 		<bv>
 		<br>
