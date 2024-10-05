@@ -1,10 +1,13 @@
-<!-- This is how to comment -->
+ <!-- /*
+ * Install the Generative AI SDK
+ *
+ * $ npm install @google/generative-ai
+ */-->
 <script lang=ts>
 		import { type ModalSettings } from '@skeletonlabs/skeleton';
 		import { getModalStore } from '@skeletonlabs/skeleton';
 		import spinner from '$lib/ring-resize-black-36.svg'
 
-		const url = 'https://www.theguardian.com/australia-news/article/2024/jul/08/blockade-australia-climate-activist-sentenced-to-three-months-in-jail-over-port-of-newcastle-protest-ntwnfb'
 		let inputURL: string;
 
 		const modalStore = getModalStore();
@@ -37,7 +40,7 @@
 					console.log(age)
 					break;
 				case 2:
-					age = "15 to 35";
+					age = "15-35";
 					break;
 				case 3:
 					age = "35-65";
@@ -101,6 +104,99 @@
 
 			if (model == "2"){
 				handleSummarizeGPT();
+			}
+
+			if (model == "3"){
+				handleSummarizeGemini();
+			}
+			if (model == "4"){
+				handleSummarizeBART();
+			}
+		}
+
+		async function handleSummarizeGemini(){
+			console.log("In Handle Summarize Gemini")
+			isLoading = true;
+			let article = "";
+			const api = 'http://127.0.0.1:8000/getArticle'
+
+			const toSend:JSON = <JSON><unknown>{
+        		"url": inputURL,
+        		"age": +user.age,
+				"nat": +user.nat,
+				"income": +user.income,
+				"ed": +user.ed,
+				"city": +user.city
+      		}
+
+			const response = await fetch(api, {
+  				method: 'POST',
+  				body: JSON.stringify(toSend),
+  				headers: { 'Content-Type': 'application/json'} });
+
+			if (!response.ok) { 
+				console.error("HTTP Error: " + response.status);
+    			const errorText = await response.text();
+    			console.error("Error response text:", errorText);
+				isLoading = false
+				
+			 }
+
+		
+			if (response.body !== null) {
+				const responseBody = await response.json(); // Parse the JSON response
+
+				
+				  const modal: ModalSettings = {
+					type: 'alert',
+					title: 'Summary',
+					body: responseBody.message
+				}
+				modalStore.trigger(modal);
+				isLoading = false;
+
+
+		}
+	}
+
+		//We send strings to Summarize BART not an array
+		async function handleSummarizeBART(){
+			isLoading = true;
+			const api = 'http://127.0.0.1:8000/summariseBART'
+			const toSend:JSON = <JSON><unknown>{
+        		"url": inputURL,
+        		"age": age,
+				"nat": nat,
+				"income": income,
+				"ed": ed,
+				"city": city
+      		}
+
+			  const response = await fetch(api, {
+  				method: 'POST',
+  				body: JSON.stringify(toSend),
+  				headers: { 'Content-Type': 'application/json'} });
+
+			if (!response.ok) { 
+				console.error("HTTP Error: " + response.status);
+    			const errorText = await response.text();
+    			console.error("Error response text:", errorText);
+				isLoading = false
+			 }
+
+		
+			if (response.body !== null) {
+				const responseBody = await response.json(); // Parse the JSON response
+    			console.log(responseBody);
+
+
+				const modal: ModalSettings = {
+					type: 'alert',
+					title: 'Summary',
+					body: responseBody.message
+				}
+				modalStore.trigger(modal);
+				isLoading = false;
 			}
 		}
 
@@ -225,17 +321,6 @@
 			user.city = 0; city = "";
 			user.income = 0; income = "";
 		}
-
-		let files: FileList;
-		
-		function handleRemoveFile(){
-			
-			
-		}
-
-		function onUploadFile(e: Event): void {
-	console.log('file data:', e);
-}
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
@@ -299,8 +384,10 @@
 		</div>
 		<div class="float-right">
 			<select class="select" style="width: 110px;" bind:value={model}>
-				<option value="1" selected>bert</option>
-				<option value="2">gpt</option>
+				<option value="1" selected>BERT</option>
+				<option value="2">ChatGPT</option>
+				<option value="3">Gemini</option>
+				<option value="4">BART</option>
 			</select>
 			{#if isLoading} 
 			<img src={spinner} alt="loading spinner"/>
