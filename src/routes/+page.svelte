@@ -61,15 +61,143 @@
 			}
 
 			if (model == "2"){
-				handleSummarizeGPT();
+				handleGPTRace();
 			}
 
 			if (model == "3"){
-				handleSummarizeGemini();
+				handleGeminiRace();
 			}
 			if (model == "4"){
 				handleBARTSummaryRace();
 			}
+		}
+
+
+		async function handleGeminiRace(){
+			try{
+				isLoading = true
+				const response = await fetchGemini('http://127.0.0.1:8000/summarizeGemini' ,{}, 15000)
+				isLoading = false;
+					let modalContent= await response.json();
+					const modal: ModalSettings = {
+						type: 'alert',
+						title: 'Summary',
+						body: modalContent.message
+						}
+					modalStore.trigger(modal);
+					isLoading = false;
+			}
+			catch(error){
+				console.error('Fetch error:', error);
+				isLoading = false;
+				const modal: ModalSettings = {
+						type: 'alert',
+						title: 'Summary',
+						body: 'Error connecting to server'
+					}
+					modalStore.trigger(modal);
+					isLoading = false;
+
+			}
+		}
+
+		function fetchGemini(url: string, options: RequestInit = {}, timeout: number = 15000): Promise<Response>{
+			return new Promise((resolve, reject) => {
+				const controller = new AbortController();
+				const timer = setTimeout(() => {
+					controller.abort(); // abort the request
+					reject(new Error('Request timed out')); // reject the promise
+				}, timeout);
+
+				const toSend:JSON = <JSON><unknown>{
+        		"url": inputURL,
+        		"age": +user.age,
+				"nat": +user.nat,
+				"income": +user.income,
+				"ed": +user.ed,
+				"city": +user.city
+      		}
+			  fetch(url, {
+					method: 'POST',
+					body: JSON.stringify(toSend),
+					headers: { 'Content-Type': 'application/json'} })
+					.then(response => {
+						clearTimeout(timer); // clear the timeout if request is successful
+						resolve(response);
+					})
+					.catch(err => {
+						if (err.name === 'AbortError') {
+							reject(new Error('Request aborted due to timeout'));
+						} else {
+							reject(err); // other errors
+						}
+					});
+
+			})
+		}
+
+		async function handleGPTRace(){
+			try{
+				isLoading = true
+				const response = await fetchGPT('http://127.0.0.1:8000/summariseGPT' ,{}, 15000)
+				isLoading = false;
+					let modalContent= await response.json();
+					const modal: ModalSettings = {
+						type: 'alert',
+						title: 'Summary',
+						body: modalContent.message
+						}
+					modalStore.trigger(modal);
+					isLoading = false;
+			}
+			catch(error){
+				console.error('Fetch error:', error);
+				isLoading = false;
+				const modal: ModalSettings = {
+						type: 'alert',
+						title: 'Summary',
+						body: 'Error connecting to server'
+					}
+					modalStore.trigger(modal);
+					isLoading = false;
+
+			}
+		}
+
+		function fetchGPT(url: string, options: RequestInit = {}, timeout: number = 15000): Promise<Response>{
+			return new Promise((resolve, reject) => {
+				const controller = new AbortController();
+				const timer = setTimeout(() => {
+					controller.abort(); // abort the request
+					reject(new Error('Request timed out')); // reject the promise
+				}, timeout);
+
+				const toSend:JSON = <JSON><unknown>{
+        		"url": inputURL,
+        		"age": +user.age,
+				"nat": +user.nat,
+				"income": +user.income,
+				"ed": +user.ed,
+				"city": +user.city
+      		}
+
+			  fetch(url, {
+					method: 'POST',
+					body: JSON.stringify(toSend),
+					headers: { 'Content-Type': 'application/json'} })
+					.then(response => {
+						clearTimeout(timer); // clear the timeout if request is successful
+						resolve(response);
+					})
+					.catch(err => {
+						if (err.name === 'AbortError') {
+							reject(new Error('Request aborted due to timeout'));
+						} else {
+							reject(err); // other errors
+						}
+					});
+
+			})
 		}
 
 		async function handleBARTSummaryRace(){
@@ -240,91 +368,6 @@
 
 
 		}
-	}
-
-		//We send strings to Summarize BART not an array
-		async function handleSummarizeBART(){
-			isLoading = true;
-			const api = 'http://127.0.0.1:8000/summariseBART'
-			const toSend:JSON = <JSON><unknown>{
-        		"url": inputURL,
-        		"age": age,
-				"nat": nat,
-				"income": income,
-				"ed": ed,
-				"city": city
-      		}
-
-			  const response = await fetch(api, {
-  				method: 'POST',
-  				body: JSON.stringify(toSend),
-  				headers: { 'Content-Type': 'application/json'} });
-
-			if (!response.ok) { 
-				console.error("HTTP Error: " + response.status);
-    			const errorText = await response.text();
-    			console.error("Error response text:", errorText);
-				isLoading = false
-			 }
-
-		
-			if (response.body !== null) {
-				const responseBody = await response.json(); // Parse the JSON response
-    			console.log(responseBody);
-
-
-				const modal: ModalSettings = {
-					type: 'alert',
-					title: 'Summary',
-					body: responseBody.message
-				}
-				modalStore.trigger(modal);
-				isLoading = false;
-			}
-		}
-
-		async function handleSummarizeGPT(){
-			isLoading = true;
-			const api = 'http://127.0.0.1:8000/summariseGPT'
-			
-			const toSend:JSON = <JSON><unknown>{
-        		"url": inputURL,
-        		"age": +user.age,
-				"nat": +user.nat,
-				"income": +user.income,
-				"ed": +user.ed,
-				"city": +user.city
-      		}
-
-			  const response = await fetch(api, {
-  				method: 'POST',
-  				body: JSON.stringify(toSend),
-  				headers: { 'Content-Type': 'application/json'} });
-
-			if (!response.ok) { 
-				console.error("HTTP Error: " + response.status);
-    			const errorText = await response.text();
-    			console.error("Error response text:", errorText);
-				isLoading = false
-			 }
-
-		
-			if (response.body !== null) {
-				const responseBody = await response.json(); // Parse the JSON response
-    			console.log(responseBody);
-
-
-				const modal: ModalSettings = {
-					type: 'alert',
-					title: 'Summary',
-					body: responseBody.message
-				}
-				modalStore.trigger(modal);
-				isLoading = false;
-			}
-
-			
-		
 	}
 
 
