@@ -118,7 +118,7 @@
 			console.log("In Handle Summarize Gemini")
 			isLoading = true;
 			let article = "";
-			const api = 'http://127.0.0.1:8000/getArticle'
+			const api = 'http://127.0.0.1:8000/summarizeGemini'
 
 			const toSend:JSON = <JSON><unknown>{
         		"url": inputURL,
