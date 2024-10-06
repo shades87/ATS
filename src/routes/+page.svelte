@@ -49,7 +49,7 @@
 					age = "65+";
 					break;
 				case 0:
-					age: "";
+					age = "";
 					break;
 			}
 			
@@ -238,11 +238,11 @@
 
 				const toSend:JSON = <JSON><unknown>{
 					"url": inputURL,
-					"age": age,
-					"nat": nat,
-					"income": income,
-					"ed": ed,
-					"city": city
+					"age": +user.age,
+					"nat": +user.nat,
+					"income": +user.income,
+					"ed": +user.ed,
+					"city": +user.city
 				}
 
 				fetch(url, {
@@ -325,52 +325,6 @@
 					});
 			});
 		}
-
-		async function handleSummarizeGemini(){
-			console.log("In Handle Summarize Gemini")
-			isLoading = true;
-			const api = 'http://127.0.0.1:8000/summarizeGemini'
-
-			const toSend:JSON = <JSON><unknown>{
-        		"url": inputURL,
-        		"age": +user.age,
-				"nat": +user.nat,
-				"income": +user.income,
-				"ed": +user.ed,
-				"city": +user.city
-      		}
-
-			const response = await fetch(api, {
-  				method: 'POST',
-  				body: JSON.stringify(toSend),
-  				headers: { 'Content-Type': 'application/json'} });
-
-			if (!response.ok) { 
-				console.error("HTTP Error: " + response.status);
-    			const errorText = await response.text();
-    			console.error("Error response text:", errorText);
-				isLoading = false
-				
-			 }
-
-		
-			if (response.body !== null) {
-				const responseBody = await response.json(); // Parse the JSON response
-
-				
-				  const modal: ModalSettings = {
-					type: 'alert',
-					title: 'Summary',
-					body: responseBody.message
-				}
-				modalStore.trigger(modal);
-				isLoading = false;
-
-
-		}
-	}
-
-
 
 		const handleEd = () => {
 			switch (+user.ed) {
