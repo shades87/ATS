@@ -4,5 +4,5 @@
 	initializeStores();
 </script>
 
-<Modal width="w-screen"  />
+<Modal width="w-2/3"  />
 <slot />
