@@ -432,7 +432,7 @@
 					<option value="1">Australian</option>
 					<option value="2">New Zealand</option>
 					<option value="3">England</option>
-					<option value="3">United States</option>
+					<option value="4">United States</option>
 				</select>
 				<p  style="margin-left: 10px; margin-right: 10px;"> Metro or regional </p>
 				<select class="select" name="Metro" bind:value={user.city} on:change={handleCity}>
