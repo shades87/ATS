@@ -1,40 +1,15 @@
-# create-svelte
+This web ui was created on windows in VS Code
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+This frontend requires Svelte, Node JS and Skeleton UI
+Node: https://nodejs.org/en/download/package-manager
+Svelte and Skeleton should be installed by runnning the command npm i
 
-## Creating a project
+This frontend wrapper is designed to connect to the backend here: https://github.com/shades87/ATS
+The backend has it's own requirements and should be started before the frontend is started.
 
-If you're seeing this, you've probably already done this step. Congrats!
+Start this frontend with the command npm run dev
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Once started you should be able to open it in any web browser in the address http://localhost:5173/
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-# install npm
+The backend requires environment variables for Gemini and Chat GPT
+For marking purposes I'm happy to provide those variables, please send an email from your @curtin email to daniel.m.mcfadyen@gmail.com
