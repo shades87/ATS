@@ -1,1 +1,3 @@
 npm install @google/generative-ai
+npm install
+npm i -D @skeletonlabs/skeleton @skeletonlabs/tw-plugin
