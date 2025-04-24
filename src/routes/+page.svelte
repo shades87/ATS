@@ -76,7 +76,7 @@
 		async function handleGeminiRace(){
 			try{
 				isLoading = true
-				const response = await fetchGemini('http://127.0.0.1:8000/summarizeGemini' ,{}, 15000)
+				const response = await fetchGemini('https://ats-wrapper.onrender.com/summarizeGemini' ,{}, 15000)
 				isLoading = false;
 					let modalContent= await response.json();
 					const modal: ModalSettings = {
@@ -139,7 +139,7 @@
 		async function handleGPTRace(){
 			try{
 				isLoading = true
-				const response = await fetchGPT('http://127.0.0.1:8000/summariseGPT' ,{}, 15000)
+				const response = await fetchGPT('https://ats-wrapper.onrender.com/summariseGPT' ,{}, 15000)
 				isLoading = false;
 					let modalContent= await response.json();
 					const modal: ModalSettings = {
@@ -203,7 +203,7 @@
 		async function handleBARTSummaryRace(){
 			try{
 					isLoading = true
-					const response = await fetchBART('http://127.0.0.1:8000/summariseBART' ,{}, 15000)
+					const response = await fetchBART('https://ats-wrapper.onrender.com/summariseBART' ,{}, 15000)
 					isLoading = false;
 					let modalContent= await response.json();
 					const modal: ModalSettings = {
@@ -266,7 +266,7 @@
 		async function handleBERTSummaryRace(){
 			try {
 				isLoading = true
-				const response = await fetchBERT('http://127.0.0.1:8000/summariseBERT', {}, 5000);
+				const response = await fetchBERT('https://ats-wrapper.onrender.com/summariseBERT', {}, 5000);
 				isLoading = false;
 				let modalContent= await response.json();
 				const modal: ModalSettings = {
